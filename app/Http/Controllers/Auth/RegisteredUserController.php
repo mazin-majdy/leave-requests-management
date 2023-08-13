@@ -46,6 +46,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        if (Auth::user()->type == 'admin') {
+            return redirect()->intended(route('admin.employees.index'));
+        } else {
+            return redirect()->intended(route('show-leaves'));
+        }
     }
 }
